@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'ui/menu.dart';
+import 'ui/bottom_navigator.dart';
 
 class App extends StatelessWidget {
   @override
@@ -7,7 +7,7 @@ class App extends StatelessWidget {
     return MaterialApp(
       // theme: ThemeData.dark(),
       home: Scaffold(
-        body: Menu(),
+        body: BottomNavigator(),
       ),
     );
   }
