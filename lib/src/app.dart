@@ -1,29 +1,34 @@
+import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_demo/core/app_provider.dart';
+import 'package:flutter_demo/core/application.dart';
 import 'package:flutter_demo/src/blocs/auth/auth_bloc.dart';
 import 'package:flutter_demo/src/repositories/auth_repository.dart';
 import 'package:flutter_demo/src/repositories/user_repository.dart';
+import 'package:flutter_demo/src/ui/pages/root_page.dart';
 import 'ui/bottom_navigator.dart';
 
-class App extends StatelessWidget {
-  final AuthRepository authRepository;
-  final UserRepository userRepository;
+class App extends StatefulWidget {
+  final Application _application;
 
-  const App({Key key, this.authRepository, this.userRepository})
-      : super(key: key);
+  const App(this._application);
+
+  @override
+  _AppState createState() => _AppState(_application);
+}
+
+class _AppState extends State<App> {
+  final Application _application;
+
+  _AppState(this._application);
 
   @override
   Widget build(BuildContext context) {
-    return RepositoryProvider.value(
-        value: authRepository,
-        child: BlocProvider(
-            create: (_) => AuthBloc(
-                authRepository: authRepository, userRepository: userRepository),
-            child: MaterialApp(
-              // theme: ThemeData.dark(),
-              home: Scaffold(
-                body: BottomNavigator(),
-              ),
-            )));
+    final app = MaterialApp(
+        initialRoute: "/", onGenerateRoute: _application.router.generator);
+    print('initial core.route = ${app.initialRoute}');
+    final appProvider = AppProvider(child: app, application: _application);
+    return appProvider;
   }
 }

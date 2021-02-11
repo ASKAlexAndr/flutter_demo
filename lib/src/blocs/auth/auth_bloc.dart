@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_demo/core/application.dart';
 import 'package:flutter_demo/src/models/user.dart';
 import 'package:flutter_demo/src/repositories/auth_repository.dart';
 import 'package:flutter_demo/src/repositories/user_repository.dart';
@@ -11,20 +12,13 @@ part 'auth_event.dart';
 part 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
-  final AuthRepository _authRepository;
-  final UserRepository _userRepository;
+  final Application _application;
   StreamSubscription<AuthStatus> _authStatusSabscription;
 
-  AuthBloc(
-      {@required AuthRepository authRepository,
-      @required UserRepository userRepository})
-      : _authRepository = authRepository,
-        _userRepository = userRepository,
-        super(const AuthState.unknown()) {
-    _authStatusSabscription = _authRepository.status
+  AuthBloc(this._application) : super(null) {
+    _authStatusSabscription = _application.authRepository.status
         .listen((status) => add(AuthStatusChanged(status)));
   }
-  // AuthBloc(this._authRepository, this._userRepository) : super(const AuthState.unknown());
 
   @override
   Stream<AuthState> mapEventToState(
@@ -52,7 +46,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   Future<User> _tryGetUser() async {
     try {
-      final user = await _userRepository.getUser();
+      final user = await _application.userRepository.getUser();
       return user;
     } on Exception {
       return null;

@@ -18,9 +18,15 @@ class AuthRepository {
     yield* _controller.stream;
   }
 
-  Future<void> logIn({@required String phone, String code}) async {
+  Future<dynamic> getCode({@required String phone}) async {
+    Map<String, String> data = await _api.post("login/", {phone: phone});
+    print(data);
+    return data;
+  }
+
+  Future<void> logIn({@required String phone, @required String code}) async {
     Map<String, String> data =
-        await _api.post("login/", {phone: phone, code: "1111"});
+        await _api.post("login/", {phone: phone, code: code});
     print(data);
     _controller.add(AuthStatus.authenticated);
   }
