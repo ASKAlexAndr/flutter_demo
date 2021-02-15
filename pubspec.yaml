@@ -31,6 +31,7 @@ dependencies:
   flutter_secure_storage: ^3.3.5
   meta: ^1.2.4
   fluro: ^1.7.8
+  mask_text_input_formatter: ^1.2.1
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.0

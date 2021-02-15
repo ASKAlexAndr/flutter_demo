@@ -1,6 +1,6 @@
 import '../resources/repository.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:flutter_demo/src/models/product_model.dart';
+import '../models/product_model.dart';
 
 class CatalogBloc {
   final _repository = Repository();

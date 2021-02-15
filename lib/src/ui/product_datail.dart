@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_demo/src/models/product_model.dart';
+import '../models/product_model.dart';
 
 class ProductDetail extends StatefulWidget {
   final ProductModel product;

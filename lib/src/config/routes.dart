@@ -1,8 +1,8 @@
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_demo/src/ui/pages/home_page.dart';
-import 'package:flutter_demo/src/ui/pages/phone_page.dart';
-import 'package:flutter_demo/src/ui/pages/root_page.dart';
+import '../ui/pages/home_page.dart';
+import '../ui/pages/phone_page.dart';
+import '../ui/pages/root_page.dart';
 
 // var phoneHandler = Handler(
 //     handlerFunc: (BuildContext context, Map<String, List<String>> params) {
@@ -37,10 +37,14 @@ class Routes {
       handlerFunc: (BuildContext context, Map<String, List<String>> params) {
     return PhonePage();
   });
+  // static Handler codeHandler = Handler(
+  //     handlerFunc: (BuildContext context, Map<String, List<String>> params) {
+  //   return CodePage();
+  // });
   static void configureRoutes(FluroRouter router) {
     router.notFoundHandler = Handler(
         handlerFunc: (BuildContext context, Map<String, List<String>> params) {
-      print("ROUTE WAS NOT FOUND !!!");
+      print("ROUTE NOT FOUND !!!");
       return;
     });
     router.define(root, handler: rootHandler);

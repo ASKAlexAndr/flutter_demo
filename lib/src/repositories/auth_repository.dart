@@ -1,6 +1,6 @@
 import 'dart:async';
-import 'package:flutter_demo/src/repositories/api/api_base.dart';
-import 'package:flutter_demo/src/repositories/api/token_storage.dart';
+import 'api/api_base.dart';
+import 'api/token_storage.dart';
 import 'package:meta/meta.dart';
 
 enum AuthStatus { unknown, authenticated, unauthenticated }

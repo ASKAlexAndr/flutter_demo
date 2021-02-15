@@ -1,5 +1,5 @@
-import 'package:flutter_demo/src/models/user.dart';
-import 'package:flutter_demo/src/repositories/api/api_base.dart';
+import '../models/user.dart';
+import 'api/api_base.dart';
 
 class UserRepository {
   User _user;

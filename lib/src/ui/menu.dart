@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_demo/src/blocs/catalog_bloc.dart';
-import 'package:flutter_demo/src/models/product_model.dart';
-import 'package:flutter_demo/src/ui/product_datail.dart';
+import '../blocs/catalog_bloc.dart';
+import '../models/product_model.dart';
+import 'product_datail.dart';
 
 class Menu extends StatefulWidget {
   @override

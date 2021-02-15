@@ -2,11 +2,9 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter_demo/core/application.dart';
-import 'package:flutter_demo/src/models/user.dart';
-import 'package:flutter_demo/src/repositories/auth_repository.dart';
-import 'package:flutter_demo/src/repositories/user_repository.dart';
-import 'package:meta/meta.dart';
+import '../../config/application.dart';
+import '../../models/user.dart';
+import '../../repositories/auth_repository.dart';
 
 part 'auth_event.dart';
 part 'auth_state.dart';
