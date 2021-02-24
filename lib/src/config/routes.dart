@@ -1,5 +1,7 @@
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_demo/src/ui/auth.dart';
+import 'package:flutter_demo/src/ui/pages/code_page.dart';
 import '../ui/pages/home_page.dart';
 import '../ui/pages/phone_page.dart';
 import '../ui/pages/root_page.dart';
@@ -33,14 +35,18 @@ class Routes {
       handlerFunc: (BuildContext context, Map<String, List<String>> params) {
     return HomePage();
   });
+  static Handler authHandler = Handler(
+      handlerFunc: (BuildContext context, Map<String, List<String>> params) {
+    return Auth();
+  });
   static Handler phoneHandler = Handler(
       handlerFunc: (BuildContext context, Map<String, List<String>> params) {
     return PhonePage();
   });
-  // static Handler codeHandler = Handler(
-  //     handlerFunc: (BuildContext context, Map<String, List<String>> params) {
-  //   return CodePage();
-  // });
+  static Handler codeHandler = Handler(
+      handlerFunc: (BuildContext context, Map<String, List<String>> params) {
+    return CodePage();
+  });
   static void configureRoutes(FluroRouter router) {
     router.notFoundHandler = Handler(
         handlerFunc: (BuildContext context, Map<String, List<String>> params) {
@@ -48,7 +54,9 @@ class Routes {
       return;
     });
     router.define(root, handler: rootHandler);
-    router.define(app, handler: homeHandler);
+    router.define(auth, handler: authHandler);
     router.define(authPhone, handler: phoneHandler);
+    router.define(authCode, handler: codeHandler);
+    router.define(app, handler: homeHandler);
   }
 }

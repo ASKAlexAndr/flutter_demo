@@ -7,7 +7,7 @@ enum AuthStatus { unknown, authenticated, unauthenticated }
 
 class AuthRepository {
   final _controller = StreamController<AuthStatus>();
-  final ApiBase _api = ApiBase();
+  final ApiBase _api = new ApiBase();
   final TokenStorage _tokenStorage = TokenStorage();
 
   Stream<AuthStatus> get status async* {
@@ -19,16 +19,16 @@ class AuthRepository {
   }
 
   Future<dynamic> getCode({@required String phone}) async {
-    Map<String, String> data = await _api.post("login/", {phone: phone});
+    print(phone);
+    Map<String, dynamic> data = await _api.post("login/", {"phone": phone});
     print(data);
     return data;
   }
 
   Future<void> logIn({@required String phone, @required String code}) async {
-    Map<String, String> data =
-        await _api.post("login/", {phone: phone, code: code});
-    print(data);
-    _controller.add(AuthStatus.authenticated);
+    Map<String, dynamic> data =
+        await _api.post("login/", {"phone": phone, "code": code});
+    if (data["result"] == "success") _controller.add(AuthStatus.authenticated);
   }
 
   Future<void> logOut() async {

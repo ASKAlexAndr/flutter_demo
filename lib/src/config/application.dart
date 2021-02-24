@@ -5,17 +5,17 @@ import '../repositories/auth_repository.dart';
 import '../repositories/user_repository.dart';
 
 class Application {
-  FluroRouter router;
-  AuthRepository authRepository;
-  UserRepository userRepository;
+  static FluroRouter router;
+  static AuthRepository authRepository;
+  static UserRepository userRepository;
 
-  void init() {
+  static void init() {
     _initRouter();
-    authRepository = AuthRepository();
-    userRepository = UserRepository();
+    authRepository = new AuthRepository();
+    userRepository = new UserRepository();
   }
 
-  void _initRouter() {
+  static void _initRouter() {
     router = new FluroRouter();
     Routes.configureRoutes(router);
   }

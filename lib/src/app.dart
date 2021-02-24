@@ -1,23 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'blocs/auth/auth_bloc.dart';
-import './config/app_provider.dart';
 import './config/application.dart';
 
 class App extends StatelessWidget {
-  const App({Key key, this.application}) : super(key: key);
-
-  final Application application;
+  const App({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final provider = BlocProvider(
-      create: (context) => AuthBloc(application),
+      create: (context) =>
+          AuthBloc(Application.authRepository, Application.userRepository),
       child: new MaterialApp(
-        onGenerateRoute: application.router.generator,
+        onGenerateRoute: Application.router.generator,
       ),
     );
-    final appProvider = AppProvider(child: provider, application: application);
-    return appProvider;
+    return provider;
   }
 }
