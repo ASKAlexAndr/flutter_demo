@@ -30,7 +30,6 @@ dependencies:
   auto_route: ^0.6.9
   flutter_secure_storage: ^3.3.5
   meta: ^1.2.4
-  fluro: ^1.7.8
   mask_text_input_formatter: ^1.2.1
   formz: ^0.3.2
   # The following adds the Cupertino Icons font to your application.

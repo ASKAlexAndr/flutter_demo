@@ -3,12 +3,12 @@ import 'api/api_base.dart';
 
 class UserRepository {
   User _user;
-  ApiBase _apiBase;
+  final ApiBase _api = new ApiBase();
 
   Future<User> getUser() async {
     if (_user != null) return _user;
 
-    final resp = _apiBase.get("/me");
+    Map<String, dynamic> resp = await _api.get("me/");
     print(resp);
 
     // return User();

@@ -19,7 +19,6 @@ class AuthRepository {
   }
 
   Future<dynamic> getCode({@required String phone}) async {
-    print(phone);
     Map<String, dynamic> data = await _api.post("login/", {"phone": phone});
     print(data);
     return data;
@@ -28,7 +27,11 @@ class AuthRepository {
   Future<void> logIn({@required String phone, @required String code}) async {
     Map<String, dynamic> data =
         await _api.post("login/", {"phone": phone, "code": code});
-    if (data["result"] == "success") _controller.add(AuthStatus.authenticated);
+
+    if (data["result"] == "success") {
+      _tokenStorage.saveToken(phone, data["hash"]);
+    }
+    _controller.add(AuthStatus.authenticated);
   }
 
   Future<void> logOut() async {

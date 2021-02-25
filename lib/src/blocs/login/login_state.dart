@@ -1,37 +1,27 @@
 part of 'login_cubit.dart';
 
-enum LoginPage { phone, code }
+enum LoginStatus { phone, loading, code }
 
 class LoginState extends Equatable {
   const LoginState(
-      {this.phoneStatus = FormzStatus.pure,
-      this.codeStatus = FormzStatus.pure,
-      this.phone = const Phone.pure(),
-      this.code = const Code.pure(),
-      this.page = LoginPage.phone});
+      {this.phone = "", this.code = "", this.status = LoginStatus.phone});
 
-  final FormzStatus phoneStatus;
-  final FormzStatus codeStatus;
-  final Phone phone;
-  final Code code;
-  final LoginPage page;
+  final String phone;
+  final String code;
+  final LoginStatus status;
 
   @override
-  List<Object> get props => [phoneStatus, codeStatus, phone, code, page];
+  List<Object> get props => [phone, code, status];
 
   LoginState copyWith(
       {FormzStatus phoneStatus,
       FormzStatus codeStatus,
-      Phone phone,
-      Code code,
-      LoginPage page}) {
+      String phone,
+      String code,
+      LoginStatus status}) {
     return LoginState(
-        phoneStatus: phoneStatus ?? this.phoneStatus,
-        codeStatus: codeStatus ?? this.codeStatus,
         phone: phone ?? this.phone,
         code: code ?? this.code,
-        page: page ?? this.page);
+        status: status ?? this.status);
   }
 }
-
-class LoginInitial extends LoginState {}
