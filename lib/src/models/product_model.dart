@@ -46,4 +46,8 @@ class CatalogModel {
     }
     _items = temp;
   }
+
+  CatalogModel() {
+    _items = [];
+  }
 }

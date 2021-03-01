@@ -8,12 +8,11 @@ class RootPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocListener<AuthBloc, AuthState>(
-      listenWhen: (prev, cur) => prev?.status != cur?.status,
       listener: (context, state) {
         switch (state.status) {
           case AuthStatus.authenticated:
             Navigator.of(context)
-                .pushNamedAndRemoveUntil(Routes.catalog, (route) => false);
+                .pushNamedAndRemoveUntil(Routes.app, (route) => false);
             break;
           case AuthStatus.unauthenticated:
             Navigator.of(context)

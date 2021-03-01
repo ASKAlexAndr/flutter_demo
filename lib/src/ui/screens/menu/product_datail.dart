@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
-import '../models/product_model.dart';
+import '../../../models/product_model.dart';
 
 class ProductDetail extends StatefulWidget {
   final ProductModel product;
 
-  ProductDetail({
+  ProductDetail(
     this.product,
-  });
+  );
 
   @override
   State<StatefulWidget> createState() {
     return _ProductDetailState(
-      product: product,
+      product,
     );
   }
 }
@@ -19,9 +19,9 @@ class ProductDetail extends StatefulWidget {
 class _ProductDetailState extends State<ProductDetail> {
   final ProductModel product;
 
-  _ProductDetailState({
+  _ProductDetailState(
     this.product,
-  });
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -37,11 +37,14 @@ class _ProductDetailState extends State<ProductDetail> {
                 floating: false,
                 pinned: true,
                 elevation: 0.0,
+                brightness: Brightness.light,
                 flexibleSpace: FlexibleSpaceBar(
-                    background: Image.network(
-                  product.detailPicture,
-                  fit: BoxFit.cover,
-                )),
+                    background: Hero(
+                        tag: product.picture,
+                        child: Image.network(
+                          product.detailPicture,
+                          fit: BoxFit.cover,
+                        ))),
               ),
             ];
           },

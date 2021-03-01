@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_demo/src/ui/auth.dart';
-import 'package:flutter_demo/src/ui/auth/code_page.dart';
-import 'package:flutter_demo/src/ui/menu.dart';
-import 'package:flutter_demo/src/ui/pages/splash_page.dart';
+import 'package:flutter_demo/src/ui/bottom_navigator.dart';
+import 'package:flutter_demo/src/ui/screens/menu/product_datail.dart';
+import 'package:flutter_demo/src/ui/screens/splash_screen.dart';
 import 'package:flutter_demo/src/ui/root.dart';
 
 class Routes {
@@ -20,10 +20,13 @@ class Routes {
         return MaterialPageRoute<dynamic>(builder: (_) => RootPage());
       case Routes.auth:
         return MaterialPageRoute<dynamic>(builder: (_) => Auth());
-      case Routes.catalog:
-        return MaterialPageRoute<dynamic>(builder: (_) => Menu());
+      case Routes.app:
+        return MaterialPageRoute<dynamic>(builder: (_) => BottomNavigator());
+      case Routes.product:
+        return MaterialPageRoute<dynamic>(
+            builder: (_) => ProductDetail(settings.arguments));
       default:
-        return MaterialPageRoute<dynamic>(builder: (_) => SplashPage());
+        return MaterialPageRoute<dynamic>(builder: (_) => SplashScreen());
     }
   }
 }

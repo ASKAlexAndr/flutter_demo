@@ -20,6 +20,13 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }
 
   @override
+  Future<void> close() {
+    _authStatusSabscription?.cancel();
+    authRepository.dispose();
+    return super.close();
+  }
+
+  @override
   Stream<AuthState> mapEventToState(
     AuthEvent event,
   ) async* {

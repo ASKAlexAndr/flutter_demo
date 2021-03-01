@@ -1,17 +1,15 @@
 import 'dart:async';
 import 'api/api_base.dart';
-import 'api/token_storage.dart';
 import 'package:meta/meta.dart';
 
 enum AuthStatus { unknown, authenticated, unauthenticated }
 
 class AuthRepository {
   final _controller = StreamController<AuthStatus>();
-  final ApiBase _api = new ApiBase();
-  final TokenStorage _tokenStorage = TokenStorage();
+  final ApiBase _api = ApiBase();
 
   Stream<AuthStatus> get status async* {
-    final Map<String, String> token = await _tokenStorage.getToken();
+    final Map<String, String> token = await _api.getToken();
     yield token.containsKey("Token")
         ? AuthStatus.authenticated
         : AuthStatus.unauthenticated;
@@ -20,22 +18,20 @@ class AuthRepository {
 
   Future<dynamic> getCode({@required String phone}) async {
     Map<String, dynamic> data = await _api.post("login/", {"phone": phone});
-    print(data);
     return data;
   }
 
   Future<void> logIn({@required String phone, @required String code}) async {
     Map<String, dynamic> data =
         await _api.post("login/", {"phone": phone, "code": code});
-
     if (data["result"] == "success") {
-      _tokenStorage.saveToken(phone, data["hash"]);
+      await _api.setToken(phone, data["hash"]);
+      _controller.add(AuthStatus.authenticated);
     }
-    _controller.add(AuthStatus.authenticated);
   }
 
   Future<void> logOut() async {
-    await _tokenStorage.clearToken();
+    await _api.clearToken();
     _controller.add(AuthStatus.unauthenticated);
   }
 

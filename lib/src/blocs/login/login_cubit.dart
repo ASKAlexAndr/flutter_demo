@@ -47,7 +47,8 @@ class LoginCubit extends Cubit<LoginState> {
 
   Future<void> codeSubmit(String code) async {
     if (code.length == 4) {
-      await authRepository.logIn(phone: state.phone, code: code);
+      var phoneRaw = state.phone.replaceAll(new RegExp(r'\D+'), '');
+      await authRepository.logIn(phone: phoneRaw, code: code);
     } else
       print("ERROR");
   }

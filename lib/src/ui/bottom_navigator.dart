@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'menu.dart';
+import 'package:flutter_demo/src/ui/screens/cart/cart.dart';
+import 'package:flutter_demo/src/ui/screens/info/info.dart';
+import 'package:flutter_demo/src/ui/screens/menu/menu.dart';
+import 'package:flutter_demo/src/ui/screens/profile/profile.dart';
 
 class BottomNavigator extends StatefulWidget {
   BottomNavigator({Key key}) : super(key: key);
@@ -11,7 +14,7 @@ class BottomNavigator extends StatefulWidget {
 class _BottomNavigatorState extends State<BottomNavigator> {
   int _selectedIndex = 0;
 
-  static List<Widget> _screens = <Widget>[Menu(), Menu(), Menu(), Menu()];
+  final List<Widget> _screens = <Widget>[Menu(), Profile(), Cart(), Info()];
 
   static const List<BottomNavigationBarItem> _bottomBarItems =
       <BottomNavigationBarItem>[
