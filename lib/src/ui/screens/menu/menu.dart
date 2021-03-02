@@ -1,21 +1,43 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_demo/src/blocs/catalog/catalog_cubit.dart';
+import 'package:flutter_demo/src/blocs/bloc/catalog_bloc.dart';
 import 'package:flutter_demo/src/config/application.dart';
 import 'package:flutter_demo/src/config/routes.dart';
 import '../../../models/product_model.dart';
 
-class Menu extends StatelessWidget {
-  const Menu({Key key}) : super(key: key);
+class Menu extends StatefulWidget {
+  Menu({Key key}) : super(key: key);
+
+  @override
+  _MenuState createState() => _MenuState();
+}
+
+class _MenuState extends State<Menu> {
+  final CatalogBloc _catalogBloc = CatalogBloc(Application.catalogRepository);
+  @override
+  void initState() {
+    _catalogBloc.add(GetCatalog());
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Container(
       child: BlocProvider(
-        create: (context) => CatalogCubit(Application.catalogRepository),
-        child: BlocBuilder<CatalogCubit, CatalogState>(
-          builder: (context, state) => buildList(state.catalog),
-        ),
+        create: (context) => _catalogBloc,
+        child:
+            BlocBuilder<CatalogBloc, CatalogState>(builder: (context, state) {
+          if (state is CatalogInitial) {
+            return Center(child: Text('Please Wait'));
+          }
+          if (state is CatalogOnLoad) {
+            return Center(child: CircularProgressIndicator());
+          }
+          if (state is CatalogIsLoaded) {
+            return buildList(state.catalog);
+          }
+          return null;
+        }),
       ),
     );
   }
@@ -44,41 +66,3 @@ class Menu extends StatelessWidget {
         });
   }
 }
-// class Menu extends StatefulWidget {
-//   @override
-//   State<StatefulWidget> createState() {
-//     return _MenuState();
-//   }
-// }
-
-// class _MenuState extends State<Menu> {
-//   @override
-//   void initState() {
-//     super.initState();
-//     // bloc.fetchCatalog();
-//   }
-
-//   @override
-//   void dispose() {
-//     // bloc.dispose();
-//     super.dispose();
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       body: StreamBuilder(
-//         // stream: bloc.catalog,
-//         builder: (context, AsyncSnapshot<CatalogModel> snapshot) {
-//           if (snapshot.hasData) {
-//             return buildList(snapshot);
-//           } else if (snapshot.hasError) {
-//             return Text(snapshot.error.toString());
-//           }
-//           return Center(child: CircularProgressIndicator());
-//         },
-//       ),
-//     );
-//   }
-
-// }

@@ -10,5 +10,6 @@ class Application {
   static void init() {
     authRepository = new AuthRepository();
     userRepository = new UserRepository();
+    catalogRepository = new CatalogRepository();
   }
 }

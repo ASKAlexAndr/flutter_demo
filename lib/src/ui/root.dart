@@ -1,30 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../blocs/auth/auth_bloc.dart';
-import '../config/routes.dart';
 import '../repositories/auth_repository.dart';
+import 'auth.dart';
+import 'bottom_navigator.dart';
 
 class RootPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocListener<AuthBloc, AuthState>(
-      listener: (context, state) {
-        switch (state.status) {
-          case AuthStatus.authenticated:
-            Navigator.of(context)
-                .pushNamedAndRemoveUntil(Routes.app, (route) => false);
-            break;
-          case AuthStatus.unauthenticated:
-            Navigator.of(context)
-                .pushNamedAndRemoveUntil(Routes.auth, (route) => false);
-            break;
-          default:
-            break;
-        }
+    return BlocBuilder<AuthBloc, AuthState>(
+      buildWhen: (prev, cur) => prev?.status != cur?.status,
+      builder: (context, state) {
+        if (state is AuthState) {
+          switch (state.status) {
+            case AuthStatus.authenticated:
+              return BottomNavigator();
+            case AuthStatus.unauthenticated:
+              return Auth();
+            default:
+              return Scaffold(
+                body: Center(child: CircularProgressIndicator()),
+              );
+          }
+        } else
+          return Scaffold(
+            body: Center(child: CircularProgressIndicator()),
+          );
       },
-      child: Scaffold(
-        body: Center(child: CircularProgressIndicator()),
-      ),
     );
   }
 }

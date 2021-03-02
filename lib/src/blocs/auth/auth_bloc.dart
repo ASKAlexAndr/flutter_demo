@@ -12,16 +12,16 @@ part 'auth_state.dart';
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final AuthRepository authRepository;
   final UserRepository userRepository;
-  StreamSubscription<AuthStatus> _authStatusSabscription;
+  StreamSubscription<AuthStatus> _authStatusSubscription;
 
   AuthBloc(this.authRepository, this.userRepository) : super(null) {
-    _authStatusSabscription = authRepository.status
+    _authStatusSubscription = authRepository.status
         .listen((status) => add(AuthStatusChanged(status)));
   }
 
   @override
   Future<void> close() {
-    _authStatusSabscription?.cancel();
+    _authStatusSubscription?.cancel();
     authRepository.dispose();
     return super.close();
   }
@@ -32,6 +32,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   ) async* {
     if (event is AuthStatusChanged) {
       yield await _mapAuthStatusChangedToState(event);
+    } else if (event is AuthLogout) {
+      await authRepository.logOut();
     }
   }
 

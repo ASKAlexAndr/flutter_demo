@@ -8,3 +8,14 @@ abstract class CatalogState extends Equatable {
 }
 
 class CatalogInitial extends CatalogState {}
+
+class CatalogOnLoad extends CatalogState {}
+
+class CatalogIsLoaded extends CatalogState {
+  final CatalogModel catalog;
+
+  CatalogIsLoaded(this.catalog);
+
+  @override
+  List<Object> get props => [catalog];
+}
