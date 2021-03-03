@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_demo/src/blocs/login/login_cubit.dart';
-import 'package:flutter_demo/src/ui/auth/code_page.dart';
+import 'package:flutter_demo/src/config/routes.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import '../../blocs/auth/auth_bloc.dart';
 
@@ -24,11 +24,7 @@ class _PhoneFormState extends State<PhoneForm> {
       listenWhen: (prev, cur) => prev.status != cur.status,
       listener: (context, state) {
         if (state.status == LoginStatus.code)
-          Navigator.of(context).push(new MaterialPageRoute<dynamic>(
-              builder: (_) => BlocProvider.value(
-                    value: BlocProvider.of<LoginCubit>(context),
-                    child: CodePage(),
-                  )));
+          Navigator.of(context).pushNamed(Routes.code);
       },
       builder: (context, state) {
         return Column(
@@ -36,6 +32,7 @@ class _PhoneFormState extends State<PhoneForm> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             TextField(
+              autofocus: true,
               key: const Key("phoneForm"),
               inputFormatters: [formatter],
               decoration: InputDecoration(

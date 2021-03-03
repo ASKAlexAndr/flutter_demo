@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'src/config/application.dart';
 import 'src/app.dart';
 
-class SimpleBlocObserver extends BlocObserver {
+class AppBlocObserver extends BlocObserver {
   @override
   void onEvent(Bloc bloc, Object event) {
     print('onEvent $event');
@@ -24,7 +24,7 @@ class SimpleBlocObserver extends BlocObserver {
 }
 
 void main() {
-  Bloc.observer = SimpleBlocObserver();
+  Bloc.observer = AppBlocObserver();
   Application.init();
   runApp(App());
 }

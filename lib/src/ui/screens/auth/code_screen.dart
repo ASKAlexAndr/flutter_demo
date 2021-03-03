@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../auth/code_form.dart';
+import 'package:flutter_demo/src/ui/auth/code_form.dart';
 
-class CodePage extends StatelessWidget {
+class CodeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(

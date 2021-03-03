@@ -19,6 +19,7 @@ class _CodeFormState extends State<CodeForm> {
     return BlocBuilder<LoginCubit, LoginState>(
       builder: (context, state) {
         return TextField(
+          autofocus: true,
           key: const Key("codeForm"),
           inputFormatters: [formatter],
           decoration: InputDecoration(

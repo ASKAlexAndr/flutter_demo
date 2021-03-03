@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter_demo/src/blocs/auth/auth_bloc.dart';
 import 'package:flutter_demo/src/repositories/auth_repository.dart';
 import 'package:formz/formz.dart';
 
@@ -8,21 +7,8 @@ part 'login_state.dart';
 
 class LoginCubit extends Cubit<LoginState> {
   final AuthRepository authRepository;
-  final AuthBloc authBloc;
 
-  LoginCubit(this.authRepository, this.authBloc) : super(LoginState());
-
-  @override
-  void onError(Object error, StackTrace stackTrace) {
-    print(error);
-    super.onError(error, stackTrace);
-  }
-
-  @override
-  void onChange(Change<LoginState> change) {
-    print(change);
-    super.onChange(change);
-  }
+  LoginCubit(this.authRepository) : super(LoginState());
 
   void phoneChanged(String phone) {
     emit(state.copyWith(

@@ -43,26 +43,27 @@ class _MenuState extends State<Menu> {
   }
 
   Widget buildList(CatalogModel catalog) {
-    return GridView.builder(
+    return ListView.builder(
         itemCount: catalog.items.length,
-        gridDelegate:
-            new SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
         itemBuilder: (BuildContext context, int index) {
-          return GridTile(
-            child: InkResponse(
+          return InkResponse(
               enableFeedback: true,
-              child: SizedBox(
-                  child: Hero(
-                      tag: catalog.items[index].picture,
-                      child: Image.network(
-                        catalog.items[index].picture,
-                        fit: BoxFit.cover,
-                      ))),
-              // onTap: () => openProductDetail(catalog.items[index], index),
+              child: Row(
+                children: [
+                  Flexible(
+                      child: Hero(
+                          tag: catalog.items[index].picture,
+                          child: Image.network(
+                            catalog.items[index].picture,
+                            fit: BoxFit.cover,
+                          ))),
+                  Flexible(
+                    child: Text(catalog.items[index].name),
+                  )
+                ],
+              ),
               onTap: () => Navigator.of(context)
-                  .pushNamed(Routes.product, arguments: catalog.items[index]),
-            ),
-          );
+                  .pushNamed(Routes.product, arguments: catalog.items[index]));
         });
   }
 }
