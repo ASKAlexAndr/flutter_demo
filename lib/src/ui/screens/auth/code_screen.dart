@@ -7,7 +7,9 @@ class CodeScreen extends StatelessWidget {
     return Container(
         child: Scaffold(
             body: Center(
+                child: Padding(
+      padding: EdgeInsets.symmetric(horizontal: 20),
       child: CodeForm(),
-    )));
+    ))));
   }
 }

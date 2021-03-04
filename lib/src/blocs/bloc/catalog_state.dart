@@ -12,7 +12,7 @@ class CatalogInitial extends CatalogState {}
 class CatalogOnLoad extends CatalogState {}
 
 class CatalogIsLoaded extends CatalogState {
-  final CatalogModel catalog;
+  final Catalog catalog;
 
   CatalogIsLoaded(this.catalog);
 

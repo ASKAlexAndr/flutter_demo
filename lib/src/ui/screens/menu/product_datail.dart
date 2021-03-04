@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import '../../../models/product_model.dart';
+import 'package:flutter_demo/src/models/catalog_model.dart';
 
 class ProductDetail extends StatefulWidget {
-  final ProductModel product;
+  final Product product;
 
   ProductDetail(
     this.product,
@@ -17,7 +17,7 @@ class ProductDetail extends StatefulWidget {
 }
 
 class _ProductDetailState extends State<ProductDetail> {
-  final ProductModel product;
+  final Product product;
 
   _ProductDetailState(
     this.product,
