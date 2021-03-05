@@ -23,6 +23,7 @@ class Section {
   String get name => _name;
   String get code => _code;
   List<dynamic> get items => _items;
+  double position = 0;
 
   Section(int id, String name, String code, List<Product> items) {
     _id = id;

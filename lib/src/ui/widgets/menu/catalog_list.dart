@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_demo/src/config/routes.dart';
 import 'package:flutter_demo/src/models/catalog_model.dart';
 import 'package:flutter_demo/src/ui/widgets/menu/product_card.dart';
 
@@ -12,9 +11,23 @@ class CatalogList extends StatefulWidget {
 }
 
 class _CatalogListState extends State<CatalogList> {
+  ScrollController headerScrollController = ScrollController();
+  ScrollController scrollController = ScrollController();
+  int currentCategoryIndex = 0;
+
   @override
   void initState() {
     super.initState();
+    scrollController.addListener(() {
+      final index = widget.catalog.sections
+          .indexWhere((element) => element.position >= scrollController.offset);
+      currentCategoryIndex = index;
+
+      headerScrollController.animateTo(
+          index * -(MediaQuery.of(context).size.width),
+          duration: Duration(seconds: 1),
+          curve: Curves.decelerate);
+    });
   }
 
   @override
@@ -32,6 +45,7 @@ class _CatalogListState extends State<CatalogList> {
 
   Widget get buildListHeader {
     return ListView.builder(
+      controller: headerScrollController,
       itemCount: widget.catalog.sections.length,
       scrollDirection: Axis.horizontal,
       itemBuilder: (context, index) => buildSectionTab(index),
@@ -50,8 +64,9 @@ class _CatalogListState extends State<CatalogList> {
         ));
   }
 
-  Widget get buildCatalogList {
+  ListView get buildCatalogList {
     return ListView.builder(
+        controller: scrollController,
         itemCount: widget.catalog.sections.length,
         itemBuilder: (context, index) =>
             buildSection(widget.catalog.sections[index]));
@@ -70,7 +85,7 @@ class _CatalogListState extends State<CatalogList> {
   }
 }
 
-Widget buildProductsList(List<Product> products) {
+ListView buildProductsList(List<Product> products) {
   return ListView.builder(
       itemCount: products.length,
       itemBuilder: (context, index) => ProductCard(product: products[index]),
